@@ -17,6 +17,8 @@ INSTALLED_APPS = [
 
     # 3rd Party
     'rest_framework',
+    'rest_framework.authtoken',
+    'djoser',
     'drf_yasg',
 
     # My App
@@ -109,3 +111,22 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # //////////////////////////////////////////////////////////////////////////////
 # Custom User Model
 AUTH_USER_MODEL = 'accounts.User'
+
+# Django Rest Framework
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+}
+
+# Djoser
+DJOSER = {
+    'LOGIN_FIELD': 'email',
+    'USER_CREATE_PASSWORD_RETYPE': True,
+    "SEND_ACTIVATION_EMAIL": True,
+    "PASSWORD_RESET_CONFIRM_URL": "auth/users/reset_password/confirm/{uid}/{token}",
+}
+
+# Email
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
