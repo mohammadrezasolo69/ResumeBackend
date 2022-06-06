@@ -20,7 +20,7 @@ INSTALLED_APPS = [
     'drf_yasg',
 
     # My App
-
+    'accounts.apps.AccountsConfig',
 ]
 
 MIDDLEWARE = [
@@ -107,3 +107,5 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # //////////////////////////////////////////////////////////////////////////////
+# Custom User Model
+AUTH_USER_MODEL = 'accounts.User'
