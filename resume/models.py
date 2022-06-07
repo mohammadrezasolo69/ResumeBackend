@@ -49,11 +49,26 @@ class Skill(models.Model):
         WEAK = 3
 
     resume = models.ForeignKey(Resume, on_delete=models.CASCADE, related_name='skills', verbose_name='Resume')
-    title = models.CharField(max_length=100, verbose_name='Title')
+    title = models.CharField(max_length=100, verbose_name='Skill')
     level = models.IntegerField(choices=LevelChoice.choices, verbose_name='Level')
 
     def __str__(self):
         return self.title
+
+
+class Language(models.Model):
+    class LevelChoice(models.IntegerChoices):
+        EXCELLENT = 0
+        GOOD = 1
+        MEDIUM = 2
+        WEAK = 3
+
+    resume = models.ForeignKey(Resume, on_delete=models.CASCADE, related_name='language', verbose_name='Resume')
+    language = models.CharField(max_length=100, blank=True, verbose_name='Language')
+    level = models.IntegerField(choices=LevelChoice.choices, blank=True, verbose_name='Level')
+
+    def __str__(self):
+        return self.language
 
 
 class SocialNetwork(models.Model):
@@ -91,3 +106,23 @@ class Project(models.Model):
         return self.title
 
 
+class Education(models.Model):
+    class GradeChoice(models.IntegerChoices):
+        Cycle = 0
+        Diploma = 1
+        Bachelor = 2
+        Master = 3
+        Doctorate = 4
+        University = 5
+        student = 6
+
+    resume = models.ForeignKey(Resume, on_delete=models.CASCADE, related_name='education',
+                               verbose_name='Resume')
+
+    grade = models.IntegerField(choices=GradeChoice.choices, blank=True, verbose_name='Grade')
+    major = models.CharField(max_length=200, blank=True, verbose_name='Major')
+    start_date = models.DateTimeField(blank=True, verbose_name='Start')
+    end_date = models.DateTimeField(blank=True, verbose_name='End')
+
+    def __str__(self):
+        return self.major
