@@ -23,6 +23,7 @@ INSTALLED_APPS = [
 
     # My App
     'accounts.apps.AccountsConfig',
+    'resume.apps.ResumeConfig',
 ]
 
 MIDDLEWARE = [
@@ -124,8 +125,9 @@ REST_FRAMEWORK = {
 DJOSER = {
     'LOGIN_FIELD': 'email',
     'USER_CREATE_PASSWORD_RETYPE': True,
-    "SEND_ACTIVATION_EMAIL": True,
-    "PASSWORD_RESET_CONFIRM_URL": "auth/users/reset_password/confirm/{uid}/{token}",
+    # "SEND_ACTIVATION_EMAIL": True,
+    # "ACTIVATION_URL": "/activate/{uid}/{token}"
+    # "PASSWORD_RESET_CONFIRM_URL": "auth/users/reset_password/confirm/{uid}/{token}",
 }
 
 # Email
