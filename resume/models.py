@@ -48,9 +48,18 @@ class Skill(models.Model):
         MEDIUM = 2
         WEAK = 3
 
-    resume = models.ForeignKey(Resume, on_delete=models.CASCADE, related_name='skills', verbose_name='Skill')
+    resume = models.ForeignKey(Resume, on_delete=models.CASCADE, related_name='skills', verbose_name='Resume')
     title = models.CharField(max_length=100, verbose_name='Title')
     level = models.IntegerField(choices=LevelChoice.choices, verbose_name='Level')
+
+    def __str__(self):
+        return self.title
+
+
+class SocialNetwork(models.Model):
+    resume = models.ForeignKey(Resume, on_delete=models.CASCADE, related_name='social', verbose_name='Resume')
+    title = models.CharField(max_length=100, blank=True, verbose_name='Title')
+    link = models.URLField(blank=True, verbose_name='Link')
 
     def __str__(self):
         return self.title

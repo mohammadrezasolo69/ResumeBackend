@@ -1,5 +1,5 @@
 from django.contrib import admin
-from resume.models import Resume, Skill
+from resume.models import Resume, Skill, SocialNetwork
 
 
 @admin.register(Resume)
@@ -8,5 +8,10 @@ class ResumeAdmin(admin.ModelAdmin):
 
 
 @admin.register(Skill)
-class ResumeAdmin(admin.ModelAdmin):
+class SkillAdmin(admin.ModelAdmin):
+    list_display = ('title', 'resume')
+
+
+@admin.register(SocialNetwork)
+class SocialNetworkAdmin(admin.ModelAdmin):
     list_display = ('title', 'resume')
