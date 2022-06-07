@@ -1,5 +1,5 @@
 from django.contrib import admin
-from resume.models import Resume, Skill, SocialNetwork, CourseCertificate
+from resume.models import Resume, Skill, SocialNetwork, CourseCertificate, Project
 
 
 @admin.register(Resume)
@@ -20,3 +20,8 @@ class SocialNetworkAdmin(admin.ModelAdmin):
 @admin.register(CourseCertificate)
 class CourseCertificateAdmin(admin.ModelAdmin):
     list_display = ('title', 'resume', 'institute', 'start_date', 'end_date')
+
+
+@admin.register(Project)
+class ProjectAdmin(admin.ModelAdmin):
+    list_display = ('title', 'resume', 'start_date', 'end_date')
