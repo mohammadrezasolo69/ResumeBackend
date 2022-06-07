@@ -63,3 +63,16 @@ class SocialNetwork(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class CourseCertificate(models.Model):
+    resume = models.ForeignKey(Resume, on_delete=models.CASCADE, related_name='CourseCertificate',
+                               verbose_name='Resume')
+    title = models.CharField(max_length=255, blank=True, verbose_name='Title')
+    link = models.URLField(blank=True, verbose_name='Link')
+    institute = models.CharField(max_length=255, blank=True, verbose_name='Institute')
+    start_date = models.DateTimeField(blank=True, verbose_name='Start')
+    end_date = models.DateTimeField(blank=True, verbose_name='End')
+
+    def __str__(self):
+        return self.title
