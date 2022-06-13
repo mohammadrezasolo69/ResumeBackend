@@ -2,10 +2,11 @@ from django.db import models
 from django.core.validators import RegexValidator
 from django.contrib.auth import get_user_model
 
+# ///////////////////////////////////// Resume \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+PHONE_REGEX = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Invalid phone number.")
+
 
 class Resume(models.Model):
-    PHONE_REGEX = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Invalid phone number.")
-
     class GenderChoice(models.TextChoices):
         MALE = 'M'
         FEMALE = 'F'
@@ -31,8 +32,7 @@ class Resume(models.Model):
     bie = models.TextField(blank=True, verbose_name='Bie')
     gender = models.CharField(max_length=1, choices=GenderChoice.choices, verbose_name='Gender')
     marital_status = models.CharField(max_length=1, choices=MaritalStatusChoice.choices, verbose_name='Marital status')
-    militaryـstatus = models.IntegerField(choices=MilitaryStatusChoice.choices,
-                                          verbose_name='Military status')
+    militaryـstatus = models.IntegerField(choices=MilitaryStatusChoice.choices, blank=True,verbose_name='Military status')
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -41,6 +41,7 @@ class Resume(models.Model):
         return self.title
 
 
+# ///////////////////////////////////// Skill \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 class Skill(models.Model):
     class LevelChoice(models.IntegerChoices):
         EXCELLENT = 0
@@ -56,6 +57,7 @@ class Skill(models.Model):
         return self.title
 
 
+# ///////////////////////////////////// Language \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 class Language(models.Model):
     class LevelChoice(models.IntegerChoices):
         EXCELLENT = 0
@@ -71,6 +73,7 @@ class Language(models.Model):
         return self.language
 
 
+# ///////////////////////////////////// Social Network \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 class SocialNetwork(models.Model):
     resume = models.ForeignKey(Resume, on_delete=models.CASCADE, related_name='social', verbose_name='Resume')
     title = models.CharField(max_length=100, blank=True, verbose_name='Title')
@@ -80,6 +83,7 @@ class SocialNetwork(models.Model):
         return self.title
 
 
+# ///////////////////////////////////// Course Certificate \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 class CourseCertificate(models.Model):
     resume = models.ForeignKey(Resume, on_delete=models.CASCADE, related_name='course',
                                verbose_name='Resume')
@@ -93,6 +97,7 @@ class CourseCertificate(models.Model):
         return self.title
 
 
+# ///////////////////////////////////// Project \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 class Project(models.Model):
     resume = models.ForeignKey(Resume, on_delete=models.CASCADE, related_name='project',
                                verbose_name='Resume')
@@ -106,6 +111,7 @@ class Project(models.Model):
         return self.title
 
 
+# ///////////////////////////////////// Education \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 class Education(models.Model):
     class GradeChoice(models.IntegerChoices):
         Cycle = 0
