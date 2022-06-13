@@ -3,6 +3,8 @@ from django.core.validators import RegexValidator
 from django.contrib.auth import get_user_model
 
 # ///////////////////////////////////// Resume \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+from django.urls import reverse
+
 PHONE_REGEX = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Invalid phone number.")
 
 
@@ -39,6 +41,7 @@ class Resume(models.Model):
 
     def __str__(self):
         return self.title
+
 
 
 # ///////////////////////////////////// Skill \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\

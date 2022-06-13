@@ -1,6 +1,6 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
-
+from rest_framework.reverse import reverse
 from resume.models import (Resume, Skill, SocialNetwork, Language, CourseCertificate, Project, Education)
 
 
@@ -57,12 +57,13 @@ class NewEducationSerializer(serializers.ModelSerializer):
 class ListResumeSerializer(serializers.ModelSerializer):
     user = serializers.SerializerMethodField(method_name='get_user')
 
+
     def get_user(self, obj):
         return obj.user.email
 
     class Meta:
         model = Resume
-        fields = ['id', 'user', 'title', 'created_at', 'updated_at']
+        fields = ['id', 'user', 'title', 'created_at', 'updated_at',]
 
 
 class ResumeSerializer(serializers.ModelSerializer):
