@@ -1,6 +1,6 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
-from rest_framework.reverse import reverse
+from drf_writable_nested.serializers import WritableNestedModelSerializer
 from resume.models import (Resume, Skill, SocialNetwork, Language, CourseCertificate, Project, Education)
 
 
@@ -57,55 +57,25 @@ class NewEducationSerializer(serializers.ModelSerializer):
 class ListResumeSerializer(serializers.ModelSerializer):
     user = serializers.SerializerMethodField(method_name='get_user')
 
-
     def get_user(self, obj):
         return obj.user.email
 
     class Meta:
         model = Resume
-        fields = ['id', 'user', 'title', 'created_at', 'updated_at',]
+        fields = ['id', 'user', 'title', 'created_at', 'updated_at', ]
 
 
-class ResumeSerializer(serializers.ModelSerializer):
+class ResumeSerializer(WritableNestedModelSerializer):
     user = UserSerializer(read_only=True)
+
     skills = NewSkillSerializer(many=True)
-    social = NewSocialNetworkSerializer(many=True)
-    language = NewLanguageSerializer(many=True)
-    course = NewCourseSerializer(many=True)
-    project = NewProjectSerializer(many=True)
-    education = NewEducationSerializer(many=True)
+    socials = NewSocialNetworkSerializer(many=True)
+    languages = NewLanguageSerializer(many=True)
+    courses = NewCourseSerializer(many=True)
+    projects = NewProjectSerializer(many=True)
+    educations = NewEducationSerializer(many=True)
 
     class Meta:
         model = Resume
         fields = '__all__'
         read_only_fields = ['id', 'user', 'created_at', 'updated_at']
-
-    def create(self, validated_data):
-        skills = validated_data.pop('skills')
-        social = validated_data.pop('social')
-        language = validated_data.pop('language')
-        course = validated_data.pop('course')
-        project = validated_data.pop('project')
-        education = validated_data.pop('education')
-
-        new_resume = Resume.objects.create(**validated_data)
-
-        for skill in skills:
-            new_skill = Skill.objects.create(resume=new_resume, **skill)
-
-        for social in social:
-            new_socials = SocialNetwork.objects.create(resume=new_resume, **social)
-
-        for language in language:
-            new_language = Language.objects.create(resume=new_resume, **language)
-
-        for course in course:
-            new_course = CourseCertificate.objects.create(resume=new_resume, **course)
-
-        for project in project:
-            new_project = Project.objects.create(resume=new_resume, **project)
-
-        for education in education:
-            new_education = Education.objects.create(resume=new_resume, **education)
-
-        return new_resume

@@ -14,4 +14,3 @@ class ResumeViewSet(viewsets.ModelViewSet):
         if self.action == 'list':
             return ListResumeSerializer
         return self.serializer_class
-

@@ -68,7 +68,7 @@ class Language(models.Model):
         MEDIUM = 2
         WEAK = 3
 
-    resume = models.ForeignKey(Resume, on_delete=models.CASCADE, related_name='language', verbose_name='Resume')
+    resume = models.ForeignKey(Resume, on_delete=models.CASCADE, related_name='languages', verbose_name='Resume')
     language = models.CharField(max_length=100, blank=True, verbose_name='Language')
     level = models.IntegerField(choices=LevelChoice.choices, blank=True, verbose_name='Level')
 
@@ -78,7 +78,7 @@ class Language(models.Model):
 
 # ///////////////////////////////////// Social Network \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 class SocialNetwork(models.Model):
-    resume = models.ForeignKey(Resume, on_delete=models.CASCADE, related_name='social', verbose_name='Resume')
+    resume = models.ForeignKey(Resume, on_delete=models.CASCADE, related_name='socials', verbose_name='Resume')
     title = models.CharField(max_length=100, blank=True, verbose_name='Title')
     link = models.URLField(blank=True, verbose_name='Link')
 
@@ -88,7 +88,7 @@ class SocialNetwork(models.Model):
 
 # ///////////////////////////////////// Course Certificate \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 class CourseCertificate(models.Model):
-    resume = models.ForeignKey(Resume, on_delete=models.CASCADE, related_name='course',
+    resume = models.ForeignKey(Resume, on_delete=models.CASCADE, related_name='courses',
                                verbose_name='Resume')
     title = models.CharField(max_length=255, blank=True, verbose_name='Title')
     link = models.URLField(blank=True, verbose_name='Link')
@@ -102,7 +102,7 @@ class CourseCertificate(models.Model):
 
 # ///////////////////////////////////// Project \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 class Project(models.Model):
-    resume = models.ForeignKey(Resume, on_delete=models.CASCADE, related_name='project',
+    resume = models.ForeignKey(Resume, on_delete=models.CASCADE, related_name='projects',
                                verbose_name='Resume')
     title = models.CharField(max_length=255, blank=True, verbose_name='Title')
     link = models.URLField(blank=True, verbose_name='Link')
@@ -125,7 +125,7 @@ class Education(models.Model):
         University = 5
         student = 6
 
-    resume = models.ForeignKey(Resume, on_delete=models.CASCADE, related_name='education',
+    resume = models.ForeignKey(Resume, on_delete=models.CASCADE, related_name='educations',
                                verbose_name='Resume')
 
     grade = models.IntegerField(choices=GradeChoice.choices, blank=True, verbose_name='Grade')
