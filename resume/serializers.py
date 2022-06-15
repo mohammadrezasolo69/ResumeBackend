@@ -1,14 +1,10 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
 from drf_writable_nested.serializers import WritableNestedModelSerializer
+
+from accounts.serializers import BaseUserSerializer
 from resume.models import (Resume, Skill, SocialNetwork, Language, CourseCertificate, Project, Education)
 
-
-# /////////////////////////////////// User Serialize \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = get_user_model()
-        fields = ['id', 'email']
 
 
 # /////////////////////////////////// Skill Serialize \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
@@ -66,7 +62,7 @@ class ListResumeSerializer(serializers.ModelSerializer):
 
 
 class ResumeSerializer(WritableNestedModelSerializer):
-    user = UserSerializer(read_only=True)
+    user = BaseUserSerializer(read_only=True)
 
     skills = NewSkillSerializer(many=True)
     socials = NewSocialNetworkSerializer(many=True)

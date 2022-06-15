@@ -1,6 +1,7 @@
 from rest_framework import viewsets
 from resume.models import Resume, Skill
 from resume.serializers import ResumeSerializer, ListResumeSerializer
+from rest_framework.authentication import TokenAuthentication
 
 
 class ResumeViewSet(viewsets.ModelViewSet):
